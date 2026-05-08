@@ -20,6 +20,10 @@
   </view>
 
   <view class="footer">
+    <button class="wrong-book-btn" bindtap="goToWrongBook">
+      <text class="btn-icon">📖</text>
+      <text>我的错题本</text>
+    </button>
     <text class="tip">💡 输入正确单词，警察就能追上小偷！</text>
   </view>
 </view>

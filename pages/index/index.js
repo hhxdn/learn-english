@@ -45,5 +45,11 @@ Page({
     wx.navigateTo({
       url: `/pages/game/game?level=${level}`
     });
+  },
+
+  goToWrongBook() {
+    wx.navigateTo({
+      url: '/pages/wrongbook/wrongbook'
+    });
   }
 });

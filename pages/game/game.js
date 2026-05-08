@@ -138,6 +138,9 @@ Page({
 
       this.showHint(`✗ 错误！正确答案是: ${currentWord.word}`, 'error');
 
+      // 添加到错题本
+      this.addToWrongBook(currentWord);
+
       // 继续下一题
       setTimeout(() => {
         const newIndex = currentIndex + 1;
@@ -165,6 +168,52 @@ Page({
       hintMessage: message,
       hintType: type
     });
+  },
+
+  // 语音朗读单词
+  speakWord() {
+    const { currentWord } = this.data;
+    if (!currentWord.word) return;
+
+    // 使用微信内置的语音合成API
+    wx.showLoading({ title: '朗读中...' });
+
+    const innerAudioContext = wx.createInnerAudioContext();
+
+    // 使用有道词典API或其他TTS服务
+    // 这里使用微信的插件或者第三方API
+    // 简单实现：使用系统TTS（需要插件支持）
+
+    // 方案1：使用微信插件（需要在app.json中配置）
+    // 方案2：调用后端API，后端调用TTS服务
+    // 方案3：使用第三方小程序插件
+
+    // 这里先用简单的提示，实际项目中需要接入TTS服务
+    wx.hideLoading();
+    wx.showToast({
+      title: `朗读: ${currentWord.word}`,
+      icon: 'none',
+      duration: 1500
+    });
+
+    // TODO: 接入真实的TTS服务
+    // 可以调用后端API，后端使用百度TTS、讯飞TTS等服务
+  },
+
+  // 添加到错题本
+  async addToWrongBook(word) {
+    try {
+      await api.addWrongWord({
+        word_id: word.id || 0,
+        word: word.word,
+        chinese: word.chinese,
+        phonetic: word.phonetic || '',
+        level_id: this.data.level
+      });
+    } catch (error) {
+      console.error('添加错题失败:', error);
+      // 静默失败，不影响游戏流程
+    }
   },
 
   gameComplete() {

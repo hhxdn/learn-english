@@ -85,6 +85,27 @@
   text-align: center;
 }
 
+.wrong-book-btn {
+  background: rgba(255,255,255,0.2);
+  color: white;
+  border: 2rpx solid rgba(255,255,255,0.5);
+  border-radius: 50rpx;
+  padding: 20rpx 40rpx;
+  font-size: 28rpx;
+  margin-bottom: 30rpx;
+  display: inline-flex;
+  align-items: center;
+  gap: 10rpx;
+}
+
+.wrong-book-btn:active {
+  background: rgba(255,255,255,0.3);
+}
+
+.btn-icon {
+  font-size: 32rpx;
+}
+
 .tip {
   display: block;
   font-size: 26rpx;

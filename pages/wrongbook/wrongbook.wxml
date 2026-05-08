@@ -1,0 +1,56 @@
+<view class="container">
+  <view class="header">
+    <text class="title">📖 我的错题本</text>
+    <text class="subtitle">复习错题，巩固记忆</text>
+  </view>
+
+  <!-- 统计卡片 -->
+  <view class="stats-section">
+    <view class="stat-card" wx:for="{{stats}}" wx:key="level_id">
+      <view class="stat-level">{{level_id}}</view>
+      <view class="stat-count">{{count}}个错题</view>
+      <view class="stat-total">共答错{{total_wrong_count}}次</view>
+    </view>
+  </view>
+
+  <!-- 筛选器 -->
+  <view class="filter-section">
+    <picker mode="selector" range="{{levels}}" range-key="name" value="{{currentLevel}}" bindchange="onLevelChange">
+      <view class="picker">
+        <text>{{currentLevel ? '已选择等级' : '全部等级'}}</text>
+        <text class="arrow">▼</text>
+      </view>
+    </picker>
+    <button class="btn-practice" bindtap="practiceWrongWords">开始练习</button>
+  </view>
+
+  <!-- 错题列表 -->
+  <view class="words-list">
+    <view class="empty" wx:if="{{wrongWords.length === 0 && !loading}}">
+      <text class="empty-icon">🎉</text>
+      <text class="empty-text">暂无错题，继续加油！</text>
+    </view>
+
+    <view class="word-item" wx:for="{{wrongWords}}" wx:key="id">
+      <view class="word-content">
+        <view class="word-main">
+          <text class="word-en">{{item.word}}</text>
+          <text class="word-phonetic">{{item.phonetic}}</text>
+        </view>
+        <text class="word-cn">{{item.chinese}}</text>
+        <view class="word-meta">
+          <text class="word-level">{{item.level_id}}</text>
+          <text class="word-count">答错{{item.wrong_count}}次</text>
+        </view>
+      </view>
+      <view class="word-actions">
+        <button class="btn-delete" bindtap="deleteWord" data-id="{{item.id}}">删除</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部操作 -->
+  <view class="footer-actions" wx:if="{{wrongWords.length > 0}}">
+    <button class="btn-clear" bindtap="clearAll">清空错题本</button>
+  </view>
+</view>

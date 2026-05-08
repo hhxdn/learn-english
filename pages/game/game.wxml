@@ -13,7 +13,12 @@
   <view class="word-area">
     <view class="word-card">
       <text class="chinese">{{currentWord.chinese}}</text>
-      <text class="phonetic">{{currentWord.phonetic}}</text>
+      <view class="phonetic-row">
+        <text class="phonetic">{{currentWord.phonetic}}</text>
+        <button class="speak-btn" bindtap="speakWord" wx:if="{{currentWord.word}}">
+          <text class="speak-icon">🔊</text>
+        </button>
+      </view>
       <view class="word-count">第 {{currentIndex + 1}} / {{totalWords}} 个</view>
     </view>
   </view>

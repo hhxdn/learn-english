@@ -35,6 +35,43 @@ const api = {
   // 获取随机单词
   getRandomWords(level_id, count = 10) {
     return request(`/words/random?level_id=${level_id}&count=${count}`);
+  },
+
+  // 添加错题
+  addWrongWord(wordData) {
+    return request('/wrong-words', {
+      method: 'POST',
+      data: wordData
+    });
+  },
+
+  // 获取错题列表
+  getWrongWords(level_id = '', page = 1, limit = 50) {
+    let url = `/wrong-words?page=${page}&limit=${limit}`;
+    if (level_id) {
+      url += `&level_id=${level_id}`;
+    }
+    return request(url);
+  },
+
+  // 获取错题统计
+  getWrongWordsStats() {
+    return request('/wrong-words/stats');
+  },
+
+  // 删除错题
+  deleteWrongWord(id) {
+    return request(`/wrong-words/${id}`, {
+      method: 'DELETE'
+    });
+  },
+
+  // 清空错题本
+  clearWrongWords(level_id = '') {
+    return request('/wrong-words/clear', {
+      method: 'POST',
+      data: { level_id }
+    });
   }
 };
 
