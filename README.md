@@ -21,6 +21,7 @@
 - 📖 **错题本**：自动记录错题，支持复习
 - 👤 **用户系统**：记录学习数据和成绩
 - 🏆 **排行榜**：总榜和等级榜，激励学习
+- 🎯 **每日挑战**：每天一次挑战，赢取积分奖励
 
 ## 项目结构
 
@@ -31,7 +32,8 @@ Learn-English/
 │   ├── game/           # 游戏主页面
 │   ├── result/         # 结果页面
 │   ├── wrongbook/      # 错题本页面
-│   └── leaderboard/    # 排行榜页面
+│   ├── leaderboard/    # 排行榜页面
+│   └── challenge/      # 每日挑战页面
 ├── utils/              # 工具函数
 │   ├── api.js          # API接口封装
 │   └── game.js         # 游戏逻辑
@@ -216,6 +218,9 @@ npm run dev
 - `GET /api/users/leaderboard` - 获取排行榜
 - `POST /api/game-records` - 提交游戏记录
 - `GET /api/game-records/leaderboard` - 获取等级排行榜
+- `GET /api/daily-challenges/today` - 获取今日挑战
+- `POST /api/daily-challenges/submit` - 提交挑战记录
+- `GET /api/daily-challenges/leaderboard` - 挑战排行榜
 
 ## 开发计划
 
@@ -229,7 +234,9 @@ npm run dev
 - [x] 错题本功能
 - [x] 用户系统
 - [x] 排行榜
-- [ ] 每日挑战
+- [x] 每日挑战
+
+**🎉 所有功能已完成！**
 
 ## 部署
 
