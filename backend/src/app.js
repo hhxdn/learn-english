@@ -7,6 +7,8 @@ require('dotenv').config();
 const wordRoutes = require('./routes/words');
 const levelRoutes = require('./routes/levels');
 const wrongWordRoutes = require('./routes/wrongWords');
+const userRoutes = require('./routes/users');
+const gameRecordRoutes = require('./routes/gameRecords');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,6 +25,8 @@ app.use('/admin', express.static(path.join(__dirname, '../public/admin')));
 app.use('/api/words', wordRoutes);
 app.use('/api/levels', levelRoutes);
 app.use('/api/wrong-words', wrongWordRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/game-records', gameRecordRoutes);
 
 // 根路径重定向到管理后台
 app.get('/', (req, res) => {
