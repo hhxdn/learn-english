@@ -1,0 +1,55 @@
+<view class="game-container">
+  <!-- 游戏进度区域 -->
+  <view class="progress-area">
+    <view class="progress-bar">
+      <view class="police-icon" style="left: {{policePosition}}%">🚔</view>
+      <view class="thief-icon">🏃</view>
+      <view class="progress-fill" style="width: {{policePosition}}%"></view>
+    </view>
+    <view class="progress-text">距离: {{distance}}%</view>
+  </view>
+
+  <!-- 单词显示区域 -->
+  <view class="word-area">
+    <view class="word-card">
+      <text class="chinese">{{currentWord.chinese}}</text>
+      <text class="phonetic">{{currentWord.phonetic}}</text>
+      <view class="word-count">第 {{currentIndex + 1}} / {{totalWords}} 个</view>
+    </view>
+  </view>
+
+  <!-- 输入区域 -->
+  <view class="input-area">
+    <input
+      class="word-input"
+      type="text"
+      placeholder="输入英文单词"
+      value="{{userInput}}"
+      bindinput="onInput"
+      bindconfirm="submitAnswer"
+      focus="{{inputFocus}}"
+    />
+    <button class="submit-btn" bindtap="submitAnswer">提交</button>
+  </view>
+
+  <!-- 提示信息 -->
+  <view class="hint-area" wx:if="{{hintMessage}}">
+    <text class="hint {{hintType}}">{{hintMessage}}</text>
+  </view>
+
+  <!-- 游戏信息 -->
+  <view class="game-info">
+    <view class="info-item">
+      <text class="info-label">正确</text>
+      <text class="info-value correct">{{correctCount}}</text>
+    </view>
+    <view class="info-item">
+      <text class="info-label">错误</text>
+      <text class="info-value wrong">{{wrongCount}}</text>
+    </view>
+    <view class="info-item">
+      <text class="info-label">时间</text>
+      <text class="info-value">{{timeText}}</text>
+    </view>
+  </view>
+</view>
