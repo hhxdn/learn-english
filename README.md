@@ -19,6 +19,8 @@
 - 📥 **批量导入**：支持JSON格式批量导入单词
 - 🔊 **语音朗读**：单词发音功能
 - 📖 **错题本**：自动记录错题，支持复习
+- 👤 **用户系统**：记录学习数据和成绩
+- 🏆 **排行榜**：总榜和等级榜，激励学习
 
 ## 项目结构
 
@@ -27,7 +29,9 @@ Learn-English/
 ├── pages/              # 小程序页面
 │   ├── index/          # 等级选择页
 │   ├── game/           # 游戏主页面
-│   └── result/         # 结果页面
+│   ├── result/         # 结果页面
+│   ├── wrongbook/      # 错题本页面
+│   └── leaderboard/    # 排行榜页面
 ├── utils/              # 工具函数
 │   ├── api.js          # API接口封装
 │   └── game.js         # 游戏逻辑
@@ -168,6 +172,34 @@ npm run dev
 - wrong_count: 答错次数
 - last_wrong_time: 最后答错时间
 
+### users 表（用户）
+- id: 主键
+- openid: 微信OpenID
+- nickname: 昵称
+- avatar_url: 头像URL
+- total_games: 总游戏次数
+- total_correct: 总答对数
+- total_wrong: 总答错数
+- best_accuracy: 最佳正确率
+- total_time: 总学习时长
+
+### game_records 表（游戏记录）
+- id: 主键
+- user_id: 用户ID
+- openid: 微信OpenID
+- level_id: 等级ID
+- correct_count: 答对数
+- wrong_count: 答错数
+- total_count: 总题数
+- accuracy: 正确率
+- time_spent: 用时
+- score: 得分
+- created_at: 创建时间
+- phonetic: 音标
+- level_id: 所属等级
+- wrong_count: 答错次数
+- last_wrong_time: 最后答错时间
+
 ## API接口
 
 详细API文档请查看 [backend/README.md](backend/README.md)
@@ -180,6 +212,10 @@ npm run dev
 - `GET /api/wrong-words` - 获取错题列表
 - `POST /api/wrong-words` - 添加错题
 - `DELETE /api/wrong-words/:id` - 删除错题
+- `POST /api/users/login` - 用户登录
+- `GET /api/users/leaderboard` - 获取排行榜
+- `POST /api/game-records` - 提交游戏记录
+- `GET /api/game-records/leaderboard` - 获取等级排行榜
 
 ## 开发计划
 
@@ -191,8 +227,8 @@ npm run dev
 - [x] 批量导入
 - [x] 语音朗读
 - [x] 错题本功能
-- [ ] 用户系统
-- [ ] 排行榜
+- [x] 用户系统
+- [x] 排行榜
 - [ ] 每日挑战
 
 ## 部署
