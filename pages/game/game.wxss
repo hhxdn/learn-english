@@ -1,0 +1,194 @@
+.game-container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+  padding: 40rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 进度条区域 */
+.progress-area {
+  background: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin-bottom: 40rpx;
+  box-shadow: 0 8rpx 20rpx rgba(0,0,0,0.15);
+}
+
+.progress-bar {
+  position: relative;
+  height: 80rpx;
+  background: #f0f0f0;
+  border-radius: 40rpx;
+  overflow: hidden;
+  margin-bottom: 20rpx;
+}
+
+.progress-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+  transition: width 0.5s ease;
+  border-radius: 40rpx;
+}
+
+.police-icon {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48rpx;
+  z-index: 2;
+  transition: left 0.5s ease;
+}
+
+.thief-icon {
+  position: absolute;
+  right: 10rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 48rpx;
+  z-index: 2;
+}
+
+.progress-text {
+  text-align: center;
+  font-size: 28rpx;
+  color: #666;
+  font-weight: bold;
+}
+
+/* 单词卡片 */
+.word-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40rpx;
+}
+
+.word-card {
+  background: white;
+  border-radius: 30rpx;
+  padding: 60rpx 40rpx;
+  width: 100%;
+  box-shadow: 0 12rpx 30rpx rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.chinese {
+  display: block;
+  font-size: 56rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.phonetic {
+  display: block;
+  font-size: 32rpx;
+  color: #999;
+  margin-bottom: 30rpx;
+}
+
+.word-count {
+  font-size: 28rpx;
+  color: #666;
+  padding-top: 20rpx;
+  border-top: 2rpx solid #eee;
+}
+
+/* 输入区域 */
+.input-area {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 30rpx;
+}
+
+.word-input {
+  flex: 1;
+  background: white;
+  border-radius: 15rpx;
+  padding: 25rpx 30rpx;
+  font-size: 32rpx;
+  box-shadow: 0 4rpx 10rpx rgba(0,0,0,0.1);
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 15rpx;
+  padding: 25rpx 40rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  box-shadow: 0 4rpx 10rpx rgba(0,0,0,0.2);
+}
+
+.submit-btn:active {
+  opacity: 0.8;
+}
+
+/* 提示信息 */
+.hint-area {
+  margin-bottom: 30rpx;
+  text-align: center;
+}
+
+.hint {
+  display: inline-block;
+  padding: 20rpx 40rpx;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.hint.success {
+  background: #d4edda;
+  color: #155724;
+}
+
+.hint.error {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.hint.warning {
+  background: #fff3cd;
+  color: #856404;
+}
+
+/* 游戏信息 */
+.game-info {
+  display: flex;
+  justify-content: space-around;
+  background: rgba(255,255,255,0.2);
+  border-radius: 20rpx;
+  padding: 30rpx;
+}
+
+.info-item {
+  text-align: center;
+}
+
+.info-label {
+  display: block;
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 10rpx;
+}
+
+.info-value {
+  display: block;
+  font-size: 40rpx;
+  font-weight: bold;
+  color: white;
+}
+
+.info-value.correct {
+  color: #4ade80;
+}
+
+.info-value.wrong {
+  color: #f87171;
+}

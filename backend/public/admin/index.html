@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>英语单词追捕 - 管理后台</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- 侧边栏 -->
+    <aside class="sidebar">
+      <div class="logo">
+        <h2>🚔 单词管理</h2>
+      </div>
+      <nav class="nav">
+        <a href="#" class="nav-item active" data-page="words">
+          <span class="icon">📚</span>
+          <span>单词管理</span>
+        </a>
+        <a href="#" class="nav-item" data-page="levels">
+          <span class="icon">🎯</span>
+          <span>等级管理</span>
+        </a>
+        <a href="#" class="nav-item" data-page="import">
+          <span class="icon">📥</span>
+          <span>批量导入</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- 主内容区 -->
+    <main class="main-content">
+      <!-- 单词管理页面 -->
+      <div id="words-page" class="page active">
+        <div class="page-header">
+          <h1>单词管理</h1>
+          <div class="actions">
+            <button class="btn btn-primary" onclick="showAddWordModal()">
+              <span>➕</span> 添加单词
+            </button>
+          </div>
+        </div>
+
+        <!-- 筛选器 -->
+        <div class="filters">
+          <select id="level-filter" class="form-control" onchange="loadWords()">
+            <option value="">全部等级</option>
+          </select>
+          <input type="text" id="keyword-filter" class="form-control" placeholder="搜索单词或释义" onkeyup="handleSearch()">
+          <button class="btn btn-danger" onclick="batchDelete()">批量删除</button>
+        </div>
+
+        <!-- 单词列表 -->
+        <div class="table-container">
+          <table class="table">
+            <thead>
+              <tr>
+                <th width="50"><input type="checkbox" id="select-all" onchange="toggleSelectAll()"></th>
+                <th>ID</th>
+                <th>单词</th>
+                <th>中文</th>
+                <th>音标</th>
+                <th>等级</th>
+                <th>状态</th>
+                <th>创建时间</th>
+                <th width="150">操作</th>
+              </tr>
+            </thead>
+            <tbody id="words-tbody">
+              <tr>
+                <td colspan="9" class="text-center">加载中...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 分页 -->
+        <div class="pagination" id="pagination"></div>
+      </div>
+
+      <!-- 等级管理页面 -->
+      <div id="levels-page" class="page">
+        <div class="page-header">
+          <h1>等级管理</h1>
+          <div class="actions">
+            <button class="btn btn-primary" onclick="showAddLevelModal()">
+              <span>➕</span> 添加等级
+            </button>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>等级ID</th>
+                <th>名称</th>
+                <th>单词数量</th>
+                <th>总单词数</th>
+                <th>颜色</th>
+                <th>排序</th>
+                <th width="150">操作</th>
+              </tr>
+            </thead>
+            <tbody id="levels-tbody">
+              <tr>
+                <td colspan="7" class="text-center">加载中...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 批量导入页面 -->
+      <div id="import-page" class="page">
+        <div class="page-header">
+          <h1>批量导入单词</h1>
+        </div>
+
+        <div class="import-container">
+          <div class="import-tips">
+            <h3>📋 导入说明</h3>
+            <ul>
+              <li>支持JSON格式批量导入</li>
+              <li>每个单词必须包含：word（英文）、chinese（中文）、level_id（等级）</li>
+              <li>phonetic（音标）为可选字段</li>
+              <li>等级ID：primary（小学）、middle（初中）、high（高中）、cet4（四级）、cet6（六级）</li>
+            </ul>
+          </div>
+
+          <div class="import-example">
+            <h4>示例格式：</h4>
+            <pre id="import-example-code">[
+  {
+    "word": "hello",
+    "chinese": "你好",
+    "phonetic": "/həˈloʊ/",
+    "level_id": "primary"
+  },
+  {
+    "word": "world",
+    "chinese": "世界",
+    "phonetic": "/wɜːrld/",
+    "level_id": "primary"
+  }
+]</pre>
+          </div>
+
+          <div class="import-form">
+            <textarea id="import-data" class="form-control" rows="15" placeholder="在此粘贴JSON数据..."></textarea>
+            <button class="btn btn-primary btn-large" onclick="importWords()">
+              <span>📥</span> 开始导入
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- 添加/编辑单词模态框 -->
+  <div id="word-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="word-modal-title">添加单词</h2>
+        <span class="close" onclick="closeWordModal()">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="word-form">
+          <input type="hidden" id="word-id">
+          <div class="form-group">
+            <label>英文单词 *</label>
+            <input type="text" id="word-word" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>中文释义 *</label>
+            <input type="text" id="word-chinese" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>音标</label>
+            <input type="text" id="word-phonetic" class="form-control" placeholder="/ˈeksəmpl/">
+          </div>
+          <div class="form-group">
+            <label>等级 *</label>
+            <select id="word-level" class="form-control" required></select>
+          </div>
+          <div class="form-group">
+            <label>状态</label>
+            <select id="word-status" class="form-control">
+              <option value="1">启用</option>
+              <option value="0">禁用</option>
+            </select>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" onclick="closeWordModal()">取消</button>
+            <button type="submit" class="btn btn-primary">保存</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 添加/编辑等级模态框 -->
+  <div id="level-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="level-modal-title">添加等级</h2>
+        <span class="close" onclick="closeLevelModal()">&times;</span>
+      </div>
+      <div class="modal-body">
+        <form id="level-form">
+          <input type="hidden" id="level-old-id">
+          <div class="form-group">
+            <label>等级ID *</label>
+            <input type="text" id="level-id" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>等级名称 *</label>
+            <input type="text" id="level-name" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label>单词数量</label>
+            <input type="number" id="level-word-count" class="form-control" value="10" min="1">
+          </div>
+          <div class="form-group">
+            <label>主题颜色</label>
+            <input type="color" id="level-color" class="form-control" value="#4A90E2">
+          </div>
+          <div class="form-group">
+            <label>排序</label>
+            <input type="number" id="level-sort" class="form-control" value="0">
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" onclick="closeLevelModal()">取消</button>
+            <button type="submit" class="btn btn-primary">保存</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<view class="container">
+  <view class="header">
+    <text class="title">🚔 英语单词追捕</text>
+    <text class="subtitle">选择你的等级，开始追捕小偷！</text>
+  </view>
+
+  <view class="level-list">
+    <view
+      class="level-item"
+      wx:for="{{levels}}"
+      wx:key="id"
+      style="background: linear-gradient(135deg, {{item.color}}dd, {{item.color}})"
+      bindtap="selectLevel"
+      data-level="{{item.id}}"
+    >
+      <view class="level-name">{{item.name}}</view>
+      <view class="level-info">{{item.wordCount}} 个单词</view>
+      <view class="level-arrow">→</view>
+    </view>
+  </view>
+
+  <view class="footer">
+    <text class="tip">💡 输入正确单词，警察就能追上小偷！</text>
+  </view>
+</view>

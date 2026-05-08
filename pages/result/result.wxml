@@ -1,0 +1,41 @@
+<view class="result-container">
+  <view class="result-header">
+    <text class="result-icon">{{resultIcon}}</text>
+    <text class="result-title">{{resultTitle}}</text>
+  </view>
+
+  <view class="stats-card">
+    <view class="stat-item">
+      <text class="stat-label">等级</text>
+      <text class="stat-value">{{levelName}}</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-label">正确</text>
+      <text class="stat-value correct">{{correct}}</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-label">错误</text>
+      <text class="stat-value wrong">{{wrong}}</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-label">用时</text>
+      <text class="stat-value">{{timeText}}</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-label">正确率</text>
+      <text class="stat-value">{{accuracy}}%</text>
+    </view>
+  </view>
+
+  <view class="rating-area">
+    <text class="rating-text">{{ratingText}}</text>
+    <view class="stars">
+      <text class="star" wx:for="{{stars}}" wx:key="index">{{item}}</text>
+    </view>
+  </view>
+
+  <view class="button-group">
+    <button class="action-btn primary" bindtap="playAgain">再玩一次</button>
+    <button class="action-btn secondary" bindtap="backToHome">返回首页</button>
+  </view>
+</view>
