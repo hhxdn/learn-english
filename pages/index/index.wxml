@@ -20,6 +20,18 @@
   </view>
 
   <view class="footer">
+    <!-- 每日挑战横幅 -->
+    <view class="challenge-banner" bindtap="goToChallenge">
+      <view class="banner-left">
+        <text class="banner-icon">🎯</text>
+        <view class="banner-text">
+          <text class="banner-title">每日挑战</text>
+          <text class="banner-subtitle">完成挑战赢取积分</text>
+        </view>
+      </view>
+      <text class="banner-arrow">→</text>
+    </view>
+
     <view class="footer-buttons">
       <button class="footer-btn" bindtap="goToWrongBook">
         <text class="btn-icon">📖</text>

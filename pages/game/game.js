@@ -18,13 +18,20 @@ Page({
     hintType: '',
     inputFocus: true,
     startTime: 0,
-    timeText: '00:00'
+    timeText: '00:00',
+    mode: 'normal', // normal 或 challenge
+    challengeId: null,
+    timeLimit: 0
   },
 
   timer: null,
 
   async onLoad(options) {
     const level = options.level || 'primary';
+    const mode = options.mode || 'normal';
+    const challengeId = options.challenge_id || null;
+    const wordCount = parseInt(options.word_count) || 0;
+    const timeLimit = parseInt(options.time_limit) || 0;
 
     try {
       wx.showLoading({ title: '加载中...' });
@@ -38,7 +45,8 @@ Page({
       }
 
       // 从API获取随机单词
-      const words = await api.getRandomWords(level, levelInfo.word_count);
+      const count = mode === 'challenge' && wordCount > 0 ? wordCount : levelInfo.word_count;
+      const words = await api.getRandomWords(level, count);
 
       if (!words || words.length === 0) {
         throw new Error('该等级暂无单词');
@@ -47,6 +55,9 @@ Page({
       this.setData({
         level,
         levelName: levelInfo.name,
+        mode,
+        challengeId,
+        timeLimit,
         words,
         totalWords: words.length,
         currentWord: words[0],
@@ -221,14 +232,13 @@ Page({
       clearInterval(this.timer);
     }
 
-    const { correctCount, wrongCount, level } = this.data;
+    const { correctCount, wrongCount, level, mode, challengeId, totalWords } = this.data;
     const totalTime = Math.floor((Date.now() - this.data.startTime) / 1000);
+    const app = getApp();
+    const openid = app.globalData.openid || 'default_user';
 
     // 提交游戏记录
     try {
-      const app = getApp();
-      const openid = app.globalData.openid || 'default_user';
-
       await api.submitGameRecord({
         openid,
         level_id: level,
@@ -238,11 +248,29 @@ Page({
       });
     } catch (error) {
       console.error('提交游戏记录失败:', error);
-      // 静默失败，不影响跳转
+    }
+
+    // 如果是挑战模式，提交挑战记录
+    if (mode === 'challenge' && challengeId) {
+      try {
+        const user = app.globalData.userInfo;
+        const completed = correctCount === totalWords; // 全部答对才算完成
+
+        await api.submitChallenge({
+          challenge_id: parseInt(challengeId),
+          openid,
+          correct_count: correctCount,
+          wrong_count: wrongCount,
+          time_spent: totalTime,
+          completed
+        });
+      } catch (error) {
+        console.error('提交挑战记录失败:', error);
+      }
     }
 
     wx.redirectTo({
-      url: `/pages/result/result?correct=${correctCount}&wrong=${wrongCount}&time=${totalTime}&level=${level}`
+      url: `/pages/result/result?correct=${correctCount}&wrong=${wrongCount}&time=${totalTime}&level=${level}&mode=${mode}`
     });
   }
 });

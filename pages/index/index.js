@@ -57,5 +57,11 @@ Page({
     wx.navigateTo({
       url: '/pages/leaderboard/leaderboard'
     });
+  },
+
+  goToChallenge() {
+    wx.navigateTo({
+      url: '/pages/challenge/challenge'
+    });
   }
 });

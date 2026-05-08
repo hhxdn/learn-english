@@ -112,6 +112,29 @@ const api = {
   // 获取等级排行榜
   getLevelLeaderboard(level_id, limit = 50) {
     return request(`/game-records/leaderboard?level_id=${level_id}&limit=${limit}`);
+  },
+
+  // 获取今日挑战
+  getTodayChallenge(openid) {
+    return request(`/daily-challenges/today?openid=${openid}`);
+  },
+
+  // 提交挑战记录
+  submitChallenge(challengeData) {
+    return request('/daily-challenges/submit', {
+      method: 'POST',
+      data: challengeData
+    });
+  },
+
+  // 获取挑战排行榜
+  getChallengeLeaderboard(limit = 50) {
+    return request(`/daily-challenges/leaderboard?limit=${limit}`);
+  },
+
+  // 获取用户挑战历史
+  getChallengeHistory(openid, limit = 30) {
+    return request(`/daily-challenges/history?openid=${openid}&limit=${limit}`);
   }
 };
 

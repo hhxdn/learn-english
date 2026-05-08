@@ -1,0 +1,91 @@
+<view class="container">
+  <!-- 挑战卡片 -->
+  <view class="challenge-card">
+    <view class="card-header">
+      <text class="title">🎯 今日挑战</text>
+      <text class="date">{{challenge ? challenge.challenge_date : '加载中...'}}</text>
+    </view>
+
+    <view class="card-body" wx:if="{{challenge}}">
+      <view class="challenge-info">
+        <view class="info-item">
+          <text class="label">等级</text>
+          <text class="value">{{challenge.level_id}}</text>
+        </view>
+        <view class="info-item">
+          <text class="label">单词数</text>
+          <text class="value">{{challenge.word_count}}个</text>
+        </view>
+        <view class="info-item">
+          <text class="label">时间限制</text>
+          <text class="value">{{challenge.time_limit}}秒</text>
+        </view>
+        <view class="info-item">
+          <text class="label">奖励积分</text>
+          <text class="value reward">+{{challenge.reward_points}}</text>
+        </view>
+      </view>
+
+      <!-- 用户状态 -->
+      <view class="user-status" wx:if="{{userStatus}}">
+        <view class="status-badge {{userStatus.completed ? 'completed' : 'in-progress'}}">
+          {{userStatus.completed ? '✓ 已完成' : '进行中'}}
+        </view>
+        <view class="status-detail">
+          <text>答对：{{userStatus.correct_count}} / {{userStatus.correct_count + userStatus.wrong_count}}</text>
+          <text>用时：{{userStatus.time_spent}}秒</text>
+          <text wx:if="{{userStatus.completed}}">获得：{{userStatus.reward_earned}}积分</text>
+        </view>
+      </view>
+
+      <!-- 开始按钮 -->
+      <button class="start-btn {{canStart ? '' : 'disabled'}}" bindtap="startChallenge">
+        {{canStart ? '开始挑战' : '今日已完成'}}
+      </button>
+    </view>
+
+    <view class="card-body" wx:else>
+      <view class="empty">
+        <text class="empty-text">今日挑战未生成</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 挑战说明 -->
+  <view class="challenge-rules">
+    <view class="rules-title">📋 挑战规则</view>
+    <view class="rules-list">
+      <text class="rule-item">• 每天一次挑战机会</text>
+      <text class="rule-item">• 在规定时间内完成所有单词</text>
+      <text class="rule-item">• 完成挑战获得积分奖励</text>
+      <text class="rule-item">• 连续挑战可增加连胜天数</text>
+    </view>
+  </view>
+
+  <!-- 查看排行榜按钮 -->
+  <button class="leaderboard-btn" bindtap="showLeaderboardPanel">
+    <text class="btn-icon">🏆</text>
+    <text>查看今日排行榜</text>
+  </button>
+
+  <!-- 排行榜弹窗 -->
+  <view class="modal {{showLeaderboard ? 'show' : ''}}" bindtap="hideLeaderboard">
+    <view class="modal-content" catchtap="">
+      <view class="modal-header">
+        <text class="modal-title">今日挑战排行榜</text>
+        <text class="close-btn" bindtap="hideLeaderboard">×</text>
+      </view>
+      <view class="modal-body">
+        <view class="rank-list">
+          <view class="rank-item" wx:for="{{leaderboard}}" wx:key="openid">
+            <view class="rank-number {{item.rank <= 3 ? 'top' + item.rank : ''}}">
+              {{item.rank}}
+            </view>
+            <text class="nickname">{{item.nickname || '学习者'}}</text>
+            <text class="score">{{item.correct_count}}题 / {{item.time_spent}}秒</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
