@@ -216,13 +216,30 @@ Page({
     }
   },
 
-  gameComplete() {
+  async gameComplete() {
     if (this.timer) {
       clearInterval(this.timer);
     }
 
-    const { correctCount, wrongCount, timeText, level } = this.data;
+    const { correctCount, wrongCount, level } = this.data;
     const totalTime = Math.floor((Date.now() - this.data.startTime) / 1000);
+
+    // 提交游戏记录
+    try {
+      const app = getApp();
+      const openid = app.globalData.openid || 'default_user';
+
+      await api.submitGameRecord({
+        openid,
+        level_id: level,
+        correct_count: correctCount,
+        wrong_count: wrongCount,
+        time_spent: totalTime
+      });
+    } catch (error) {
+      console.error('提交游戏记录失败:', error);
+      // 静默失败，不影响跳转
+    }
 
     wx.redirectTo({
       url: `/pages/result/result?correct=${correctCount}&wrong=${wrongCount}&time=${totalTime}&level=${level}`

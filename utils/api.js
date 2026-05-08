@@ -72,6 +72,46 @@ const api = {
       method: 'POST',
       data: { level_id }
     });
+  },
+
+  // 用户登录
+  userLogin(openid, userInfo = {}) {
+    return request('/users/login', {
+      method: 'POST',
+      data: { openid, ...userInfo }
+    });
+  },
+
+  // 获取用户信息
+  getUserInfo(openid) {
+    return request(`/users/info?openid=${openid}`);
+  },
+
+  // 提交游戏记录
+  submitGameRecord(recordData) {
+    return request('/game-records', {
+      method: 'POST',
+      data: recordData
+    });
+  },
+
+  // 获取用户游戏记录
+  getUserRecords(openid, level_id = '', page = 1) {
+    let url = `/game-records?openid=${openid}&page=${page}`;
+    if (level_id) {
+      url += `&level_id=${level_id}`;
+    }
+    return request(url);
+  },
+
+  // 获取排行榜
+  getLeaderboard(limit = 100, order_by = 'best_accuracy') {
+    return request(`/users/leaderboard?limit=${limit}&order_by=${order_by}`);
+  },
+
+  // 获取等级排行榜
+  getLevelLeaderboard(level_id, limit = 50) {
+    return request(`/game-records/leaderboard?level_id=${level_id}&limit=${limit}`);
   }
 };
 

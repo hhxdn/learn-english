@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/game/game",
     "pages/result/result",
-    "pages/wrongbook/wrongbook"
+    "pages/wrongbook/wrongbook",
+    "pages/leaderboard/leaderboard"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -51,5 +51,11 @@ Page({
     wx.navigateTo({
       url: '/pages/wrongbook/wrongbook'
     });
+  },
+
+  goToLeaderboard() {
+    wx.navigateTo({
+      url: '/pages/leaderboard/leaderboard'
+    });
   }
 });

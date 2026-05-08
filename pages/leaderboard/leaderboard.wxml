@@ -1,0 +1,53 @@
+<view class="container">
+  <!-- 标签页 -->
+  <view class="tabs">
+    <view
+      class="tab-item {{currentTab === index ? 'active' : ''}}"
+      wx:for="{{tabs}}"
+      wx:key="index"
+      bindtap="switchTab"
+      data-index="{{index}}"
+    >
+      {{item}}
+    </view>
+  </view>
+
+  <!-- 我的排名 -->
+  <view class="my-rank" wx:if="{{myRank}}">
+    <text class="rank-icon">🏆</text>
+    <text class="rank-text">我的排名：第 {{myRank}} 名</text>
+  </view>
+
+  <!-- 排行榜列表 -->
+  <view class="leaderboard-list">
+    <view class="empty" wx:if="{{leaderboard.length === 0 && !loading}}">
+      <text class="empty-icon">📊</text>
+      <text class="empty-text">暂无排行数据</text>
+    </view>
+
+    <view
+      class="rank-item {{item.openid === myOpenid ? 'highlight' : ''}}"
+      wx:for="{{leaderboard}}"
+      wx:key="openid"
+    >
+      <view class="rank-left">
+        <view class="rank-number {{item.rank <= 3 ? 'top' + item.rank : ''}}">
+          {{item.rank}}
+        </view>
+        <view class="user-info">
+          <text class="nickname">{{item.nickname || '学习者'}}</text>
+          <text class="stats" wx:if="{{currentTab === 0}}">
+            游戏{{item.total_games}}次 · 答对{{item.total_correct}}题
+          </text>
+          <text class="stats" wx:else>
+            游戏{{item.play_count}}次 · 最快{{item.best_time}}秒
+          </text>
+        </view>
+      </view>
+      <view class="rank-right">
+        <text class="accuracy">{{item.best_accuracy}}%</text>
+        <text class="label">正确率</text>
+      </view>
+    </view>
+  </view>
+</view>
