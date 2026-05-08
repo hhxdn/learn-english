@@ -2,6 +2,11 @@
 
 一个寓教于乐的英语单词学习小程序，通过"警察抓小偷"的游戏形式帮助用户记忆单词。
 
+## 仓库地址
+
+- **GitHub**: https://github.com/hhxdn/learn-english.git
+- **Gitee**: https://gitee.com/hhxdn/learn-english.git
+
 ## 功能特点
 
 - 🎮 **游戏化学习**：警察追捕小偷的趣味形式
@@ -12,6 +17,8 @@
 - 🔧 **管理后台**：可视化管理单词和等级
 - 💾 **数据库存储**：MySQL持久化存储
 - 📥 **批量导入**：支持JSON格式批量导入单词
+- 🔊 **语音朗读**：单词发音功能
+- 📖 **错题本**：自动记录错题，支持复习
 
 ## 项目结构
 
@@ -150,6 +157,17 @@ npm run dev
 - level_id: 所属等级
 - status: 状态（启用/禁用）
 
+### wrong_words 表（错题记录）
+- id: 主键
+- user_id: 用户ID
+- word_id: 单词ID
+- word: 英文单词
+- chinese: 中文释义
+- phonetic: 音标
+- level_id: 所属等级
+- wrong_count: 答错次数
+- last_wrong_time: 最后答错时间
+
 ## API接口
 
 详细API文档请查看 [backend/README.md](backend/README.md)
@@ -159,6 +177,9 @@ npm run dev
 - `GET /api/words/random` - 获取随机单词
 - `POST /api/words` - 创建单词
 - `POST /api/words/batch/import` - 批量导入
+- `GET /api/wrong-words` - 获取错题列表
+- `POST /api/wrong-words` - 添加错题
+- `DELETE /api/wrong-words/:id` - 删除错题
 
 ## 开发计划
 
@@ -168,8 +189,8 @@ npm run dev
 - [x] 后端API
 - [x] 管理后台
 - [x] 批量导入
-- [ ] 语音朗读
-- [ ] 错题本功能
+- [x] 语音朗读
+- [x] 错题本功能
 - [ ] 用户系统
 - [ ] 排行榜
 - [ ] 每日挑战

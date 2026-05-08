@@ -1,0 +1,19 @@
+{
+  "defaultPermissionMode": "acceptEdits",
+  "permissions": {
+    "allow": [
+      "read:*",
+      "write:*",
+      "exec:node",
+      "exec:pnpm",
+      "exec:git"
+    ],
+    "deny": [
+      "exec:rm -rf",
+      "exec:mv /"
+    ]
+  },
+  "env": {
+    "CLAUDE_CODE_DISABLE_FEEDBACK_SURVEY": "1"
+  }
+}
