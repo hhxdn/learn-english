@@ -17,10 +17,10 @@
 
 .progress-bar {
   position: relative;
-  height: 80rpx;
+  height: 100rpx;
   background: #f0f0f0;
-  border-radius: 40rpx;
-  overflow: hidden;
+  border-radius: 50rpx;
+  overflow: visible;
   margin-bottom: 20rpx;
 }
 
@@ -31,25 +31,252 @@
   height: 100%;
   background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
   transition: width 0.5s ease;
-  border-radius: 40rpx;
+  border-radius: 50rpx;
 }
 
+/* 警察卡通形象 */
 .police-icon {
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);
-  font-size: 48rpx;
-  z-index: 2;
+  z-index: 3;
   transition: left 0.5s ease;
 }
 
+.police-car {
+  position: relative;
+  width: 90rpx;
+  height: 90rpx;
+  animation: police-bounce 0.8s infinite;
+}
+
+/* 警察头部 */
+.car-body {
+  position: absolute;
+  top: 10rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50rpx;
+  height: 50rpx;
+  background: #fcd34d;
+  border-radius: 50%;
+  box-shadow: 0 4rpx 8rpx rgba(0,0,0,0.2);
+}
+
+/* 警察帽子 */
+.car-body::before {
+  content: '';
+  position: absolute;
+  top: -15rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 45rpx;
+  height: 20rpx;
+  background: #2563eb;
+  border-radius: 20rpx 20rpx 0 0;
+  box-shadow: 0 -2rpx 4rpx rgba(0,0,0,0.1);
+}
+
+/* 帽檐 */
+.car-body::after {
+  content: '';
+  position: absolute;
+  top: -8rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 55rpx;
+  height: 8rpx;
+  background: #1e40af;
+  border-radius: 4rpx;
+}
+
+/* 警徽 */
+.car-light {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 12rpx;
+  height: 12rpx;
+  background: #fbbf24;
+  border-radius: 50%;
+  box-shadow: 0 0 8rpx #fbbf24;
+  animation: badge-shine 1s infinite;
+}
+
+/* 眼睛 */
+.car-window {
+  position: absolute;
+  top: 30rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40rpx;
+  height: 15rpx;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.car-window::before,
+.car-window::after {
+  content: '';
+  width: 8rpx;
+  height: 8rpx;
+  background: #1f2937;
+  border-radius: 50%;
+  animation: eye-blink 3s infinite;
+}
+
+/* 微笑 */
+.police-car::after {
+  content: '';
+  position: absolute;
+  top: 50rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20rpx;
+  height: 10rpx;
+  border: 3rpx solid #ef4444;
+  border-top: none;
+  border-radius: 0 0 20rpx 20rpx;
+}
+
+@keyframes police-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8rpx); }
+}
+
+@keyframes badge-shine {
+  0%, 100% { opacity: 1; transform: translateX(-50%) scale(1); }
+  50% { opacity: 0.6; transform: translateX(-50%) scale(1.2); }
+}
+
+@keyframes eye-blink {
+  0%, 90%, 100% { height: 8rpx; }
+  95% { height: 2rpx; }
+}
+
+/* 小偷卡通形象 */
 .thief-icon {
   position: absolute;
-  right: 10rpx;
+  right: 20rpx;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 48rpx;
-  z-index: 2;
+  z-index: 3;
+}
+
+.thief-character {
+  position: relative;
+  width: 90rpx;
+  height: 90rpx;
+  animation: thief-shake 0.5s infinite;
+}
+
+/* 小偷头部 */
+.thief-head {
+  position: absolute;
+  top: 10rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50rpx;
+  height: 50rpx;
+  background: #fbbf24;
+  border-radius: 50%;
+  box-shadow: 0 4rpx 8rpx rgba(0,0,0,0.2);
+}
+
+/* 黑色面罩 */
+.thief-head::before {
+  content: '';
+  position: absolute;
+  top: 20rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 45rpx;
+  height: 18rpx;
+  background: #1f2937;
+  border-radius: 10rpx;
+}
+
+/* 眼睛（在面罩上） */
+.thief-head::after {
+  content: '';
+  position: absolute;
+  top: 24rpx;
+  left: 12rpx;
+  width: 8rpx;
+  height: 8rpx;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 18rpx 0 0 white;
+}
+
+/* 身体 */
+.thief-body {
+  position: absolute;
+  top: 55rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40rpx;
+  height: 35rpx;
+  background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+  border-radius: 8rpx 8rpx 15rpx 15rpx;
+  box-shadow: 0 4rpx 8rpx rgba(0,0,0,0.2);
+}
+
+/* 条纹（囚服风格） */
+.thief-body::before {
+  content: '';
+  position: absolute;
+  top: 8rpx;
+  left: 0;
+  width: 100%;
+  height: 3rpx;
+  background: #6b7280;
+  box-shadow: 0 8rpx 0 #6b7280, 0 16rpx 0 #6b7280;
+}
+
+/* 钱袋 */
+.thief-bag {
+  position: absolute;
+  top: 60rpx;
+  right: -8rpx;
+  width: 28rpx;
+  height: 28rpx;
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  border-radius: 50% 50% 50% 0;
+  box-shadow: 0 4rpx 8rpx rgba(0,0,0,0.3);
+  transform: rotate(-20deg);
+}
+
+/* 钱袋上的$符号 */
+.thief-bag::before {
+  content: '$';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(20deg);
+  color: #fbbf24;
+  font-size: 18rpx;
+  font-weight: bold;
+  text-shadow: 0 1rpx 2rpx rgba(0,0,0,0.3);
+}
+
+/* 钱袋绳子 */
+.thief-bag::after {
+  content: '';
+  position: absolute;
+  top: 2rpx;
+  left: 2rpx;
+  width: 8rpx;
+  height: 8rpx;
+  border: 2rpx solid #6d28d9;
+  border-radius: 50%;
+}
+
+@keyframes thief-shake {
+  0%, 100% { transform: translateY(-50%) rotate(-3deg); }
+  50% { transform: translateY(-50%) rotate(3deg); }
 }
 
 .progress-text {

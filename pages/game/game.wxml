@@ -2,8 +2,22 @@
   <!-- 游戏进度区域 -->
   <view class="progress-area">
     <view class="progress-bar">
-      <view class="police-icon" style="left: {{policePosition}}%">🚔</view>
-      <view class="thief-icon">🏃</view>
+      <!-- 警察图标 -->
+      <view class="police-icon" style="left: {{policePosition}}%">
+        <view class="police-car">
+          <view class="car-body"></view>
+          <view class="car-light"></view>
+          <view class="car-window"></view>
+        </view>
+      </view>
+      <!-- 小偷图标 -->
+      <view class="thief-icon">
+        <view class="thief-character">
+          <view class="thief-head"></view>
+          <view class="thief-body"></view>
+          <view class="thief-bag"></view>
+        </view>
+      </view>
       <view class="progress-fill" style="width: {{policePosition}}%"></view>
     </view>
     <view class="progress-text">距离: {{distance}}%</view>
