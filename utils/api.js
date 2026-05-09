@@ -46,8 +46,8 @@ const api = {
   },
 
   // 获取错题列表
-  getWrongWords(level_id = '', page = 1, limit = 50) {
-    let url = `/wrong-words?page=${page}&limit=${limit}`;
+  getWrongWords(user_id = 'default_user', level_id = '', page = 1, limit = 50) {
+    let url = `/wrong-words?user_id=${user_id}&page=${page}&limit=${limit}`;
     if (level_id) {
       url += `&level_id=${level_id}`;
     }
@@ -55,8 +55,8 @@ const api = {
   },
 
   // 获取错题统计
-  getWrongWordsStats() {
-    return request('/wrong-words/stats');
+  getWrongWordsStats(user_id = 'default_user') {
+    return request(`/wrong-words/stats?user_id=${user_id}`);
   },
 
   // 删除错题
@@ -67,10 +67,10 @@ const api = {
   },
 
   // 清空错题本
-  clearWrongWords(level_id = '') {
+  clearWrongWords(user_id = 'default_user', level_id = '') {
     return request('/wrong-words/clear', {
       method: 'POST',
-      data: { level_id }
+      data: { user_id, level_id }
     });
   },
 

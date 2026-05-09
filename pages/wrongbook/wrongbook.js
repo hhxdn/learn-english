@@ -26,7 +26,9 @@ Page({
 
   async loadStats() {
     try {
-      const stats = await api.getWrongWordsStats();
+      const app = getApp();
+      const user_id = app.globalData.openid || 'default_user';
+      const stats = await api.getWrongWordsStats(user_id);
       this.setData({ stats });
     } catch (error) {
       console.error('加载统计失败:', error);
@@ -36,8 +38,10 @@ Page({
   async loadWrongWords() {
     try {
       wx.showLoading({ title: '加载中...' });
+      const app = getApp();
+      const user_id = app.globalData.openid || 'default_user';
       const { currentLevel } = this.data;
-      const data = await api.getWrongWords(currentLevel);
+      const data = await api.getWrongWords(user_id, currentLevel);
       this.setData({
         wrongWords: data.list,
         loading: false
@@ -98,8 +102,10 @@ Page({
     if (!res.confirm) return;
 
     try {
+      const app = getApp();
+      const user_id = app.globalData.openid || 'default_user';
       const { currentLevel } = this.data;
-      await api.clearWrongWords(currentLevel);
+      await api.clearWrongWords(user_id, currentLevel);
       wx.showToast({
         title: '清空成功',
         icon: 'success'

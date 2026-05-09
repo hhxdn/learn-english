@@ -214,7 +214,11 @@ Page({
   // 添加到错题本
   async addToWrongBook(word) {
     try {
+      const app = getApp();
+      const user_id = app.globalData.openid || 'default_user';
+
       await api.addWrongWord({
+        user_id,
         word_id: word.id || 0,
         word: word.word,
         chinese: word.chinese,

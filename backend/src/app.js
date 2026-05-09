@@ -10,6 +10,7 @@ const wrongWordRoutes = require('./routes/wrongWords');
 const userRoutes = require('./routes/users');
 const gameRecordRoutes = require('./routes/gameRecords');
 const dailyChallengeRoutes = require('./routes/dailyChallenges');
+const adminRoutes = require('./routes/admin');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -29,6 +30,7 @@ app.use('/api/wrong-words', wrongWordRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/game-records', gameRecordRoutes);
 app.use('/api/daily-challenges', dailyChallengeRoutes);
+app.use('/api/admin', adminRoutes);
 
 // 根路径重定向到管理后台
 app.get('/', (req, res) => {
